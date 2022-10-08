@@ -1,146 +1,131 @@
-//This is used for the responsive hamburger menu//
+//This has been used to build navigation dynamically and in a NON STATIC MANNER
 
-const hamburger = document.querySelector(".hamburger");
-const navMenu = document.querySelector(".nav-menu");
+const navigationSection = document.querySelectorAll("[data-nav]");
+let ul = document.getElementById("navbar__list");
+navigationSection.forEach((section) => {
+  const navText = section.getAttribute("data-nav");
 
-hamburger.addEventListener("click", () => {
-    hamburger.classList.toggle("active");
-    navMenu.classList.toggle("active");
-})
+  let li = document.createElement("li");
+  li.setAttribute("id", navText);
+  li.addEventListener("click", function () {
+    section.scrollIntoView({ behavior: "smooth" });
+  });
 
-document.querySelectorAll(".nav-link").forEach(n => n.
-    addEventListener("click", () => {
-        hamburger.classList.remove("active");
-        navMenu.classList.remove("active");
-    }))
+  let text = document.createTextNode(navText);
+  li.appendChild(text);
+  ul.appendChild(li);
+});
 
-// This has been used to build the navigation dynamically//
-
+//This gets the dimensions required for active scrolling
 
 
-const listitem = document.querySelector( "nav" )
-const listview = document.createElement( "ul" );
-    listview.innerHTML = `
-        <li><a href="#Home">Home</a></li>
-        <li><a href="#Blog">Blog</a></li>
-        <li><a href="#About">About</a></li>
-        <li><a href="Contact">Contact</a></li>`;
-        listitem.append( listview );
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.top < window.innerHeight * 0.5 &&
+    rect.bottom > window.innerHeight * 0.5
+  );
+}
 
-//This has been used to build a subscription form with validation//
+// This gives the active scroll function
 
-function validateForm(){
-let name=document.getElementById("name").value;
-let email=document.getElementById("email").value;
+window.addEventListener("scroll", function () {
+  const navList = document.querySelectorAll("li");
 
-if(name==""&&email==""){
+  //const sections = doucment.querySelectorAll("data-nav");
+  navigationSection.forEach(function (elem) {
+    const list = elem.classList;
+    if (isInViewport(elem)) {
+      list.add("your-active-class");
+      navList.forEach((nav) => {
+        if (nav.id === elem.dataset.nav) {
+          nav.classList.add("active");
+        } else {
+          nav.classList.remove("active");
+        }
+      });
+    } else {
+      list.remove("your-active-class");
+    }
+  });
+});
+
+// This verifies the subscription form
+
+function validateForm() {
+  let name = document.getElementById("name").value;
+  let email = document.getElementById("email").value;
+
+  if (name == "" && email == "") {
     alert("Please enter your details to subscribe");
     return false;
-}
-
-else if(name==null||name==""){
+  } else if (name == null || name == "") {
     alert("Please enter your name");
     return false;
-}
-
-else if(email==null||email==""){
+  } else if (email == null || email == "") {
     alert("Please enter your email");
     return false;
+  } else alert("Form successfully submitted. Thank you for subscribing!!!");
+  return true;
 }
 
-else alert("Form successfully submitted. Thank you for subscribing!!!")
-    return true;
-}
-
-regform.addEventListener('submit', (load) => {
-    load.preventDefault();
+regform.addEventListener("submit", (load) => {
+  load.preventDefault();
 });
 
-//This has been used for smooth scrolling to the correct part of the page//
 
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener("click", function(e){
-        e.preventDefault();
-        document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior : "smooth",
-            block : "end"
-        });
-    });
-});
-
-//This has been used to highlight the active part of the scrolled menu//
-
-const links = document.querySelectorAll("li");
-const sec = document.querySelectorAll("section");
-
-function activeMenu() {
-    let len = sec.length;
-    while(--len && window.scrollY + 97 < sec[len].offsetTop){}
-    links.forEach(ltx => ltx.classList.remove("active"));
-    links[len].classList.add("active");
-}
-activeMenu();
-window.addEventListener("scroll", activeMenu);
 
 /**
- * 
+ *
  * Manipulating the DOM exercise.
  * Exercise programmatically builds navigation,
  * scrolls to anchors from navigation,
  * and highlights section in viewport upon scrolling.
- * 
+ *
  * Dependencies: None
- * 
+ *
  * JS Version: ES2015/ES6
- * 
+ *
  * JS Standard: ESlint
- * 
-*/
+ *
+ */
 
 /**
  * Comments should be present at the beginning of each procedure and class.
  * Great to have comments before crucial code sections within the procedure.
-*/
+ */
 
 /**
  * Define Global Variables
- * 
-*/
-
+ *
+ */
 
 /**
  * End Global Variables
  * Start Helper Functions
- * 
-*/
-
-
+ *
+ */
 
 /**
  * End Helper Functions
  * Begin Main Functions
- * 
-*/
+ *
+ */
 
 // build the nav
 
-
 // Add class 'active' to section when near top of viewport
 
-
 // Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
  * Begin Events
- * 
-*/
+ *
+ */
 
-// Build menu 
+// Build menu
 
 // Scroll to section on link click
 
 // Set sections as active
-
-
